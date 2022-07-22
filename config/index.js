@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = {
   projectName: 'clear-weather',
   date: '2022-7-21',
@@ -8,15 +10,19 @@ const config = {
     828: 1.81 / 2
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
+  outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: ['taro-plugin-pinia'],
   defineConstants: {
+    IS_H5: process.env.TARO_ENV === "h5",
+    IS_WEAPP: process.env.TARO_ENV === "weapp",
+    IS_DEV: process.env.NODE_ENV === "development",
   },
   copy: {
-    patterns: [
-    ],
-    options: {
-    }
+    patterns: [],
+    options: {}
   },
   framework: 'vue3',
   mini: {
@@ -40,9 +46,7 @@ const config = {
     postcss: {
       pxtransform: {
         enable: true,
-        config: {
-
-        }
+        config: {}
       },
       url: {
         enable: true,

@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "clear-weather",
   "description": "清雨天气小程序版",
-  "appid": "touristappid",
+  "appid": "wx4252d385138ba914",
   "setting": {
     "urlCheck": true,
     "es6": false,
