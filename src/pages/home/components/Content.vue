@@ -16,7 +16,7 @@
 import Taro from '@tarojs/taro'
 import {ref,onMounted} from 'vue'
 
-const jinrishici = require('../utils/jinrishici.js')
+const jinrishici = require('../../../utils/jinrishici')
 
 export default {
   setup() {
@@ -27,7 +27,6 @@ export default {
       jinrishici.load(result => {
         contentRef.value = result.data.content
         contentArr.value = contentRef.value.split('，')
-        console.log('contentArr',result.data);
       })
       Taro.loadFontFace({
         family: 'yingqu',
@@ -57,7 +56,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-right: 150px;
+  margin-left: 350px;
   margin-top: 50px;
 }
 .title {
@@ -65,6 +64,8 @@ export default {
   font-size: 50px;
   writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/  
   writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+  letter-spacing:14px;
+  margin-right: 3px;
 }
 </style>
 
