@@ -1,18 +1,33 @@
 <template>
   <view class="index">
-  <Counter/>
+  <Content/>
   </view>
 </template>
 
 <script>
 import './index.scss'
-import Counter from '../../components/Counter.vue'
+import Content from '../../components/Content.vue'
+import {ref,onMounted} from 'vue'
+import Taro from '@tarojs/taro'
 
 export default {
   name: 'Index',
 
-  components: {Counter},
+  components: {Content},
 
+  setup() {
+    onMounted(()=>{
+      Taro.getLocation({
+        type: 'wgs84',
+        success: function (res) {
+          const latitude = res.latitude
+          const longitude = res.longitude
+          const speed = res.speed
+          const accuracy = res.accuracy
+        }
+      })
+    }) 
+  }
 
 }
 </script>
