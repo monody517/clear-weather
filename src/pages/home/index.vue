@@ -2,6 +2,7 @@
   <view class="index">
     <HomeTab :currentCity="currentCity"/>
     <Content/>
+    <Weather :latitude="latitude" :longitude="longitude"/>
   </view>
 </template>
 
@@ -9,23 +10,27 @@
 import './index.scss'
 import Content from '../home/components/Content.vue'
 import HomeTab from '../home/components/homeTab.vue'
+import Weather from './components/weather'
 import {ref,onMounted} from 'vue'
 import Taro from '@tarojs/taro'
-import WeatherService from '../../service/weather.service.tsx'
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
 
 export default {
   name: 'Index',
 
-  components: {Content,HomeTab},
+  components: {Content,HomeTab,Weather},
 
   methods: {
 
   },
 
   setup() {
+    
     let currentCity = ref('')
+    let latitude = ref('')
+    let longitude = ref('')
+
     onMounted(()=>{
       const qqmapsdk = new QQMapWX({
           key: 'GZOBZ-STL3J-WXOFV-FDSNH-UPDKV-DQFCH'
@@ -42,13 +47,10 @@ export default {
             longitude: result.longitude.toString()
             },
             success: async function (res) {
-              let province = res.result.ad_info.province
-              let city = res.result.ad_info.city
-              let district = res.result.ad_info.district
+              let city = res.result.ad_info.city 
               currentCity.value = city
-
-              const response = await WeatherService.getCurrentCity(result.longitude.toFixed(2).toString()+','+result.latitude.toFixed(2).toString())
-              console.log('response',response);
+              latitude.value = result.latitude
+              longitude.value = result.longitude
             },
             fail: function (res) {
               console.log(res);
@@ -61,7 +63,9 @@ export default {
       })
   })
   return {
-    currentCity
+    currentCity,
+    latitude,
+    longitude
   }
 }
 
