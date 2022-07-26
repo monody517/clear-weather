@@ -1,9 +1,15 @@
 <template>
   <view class="index">
-    <!-- <image :src="`https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/${'qing.jpg'}`" alt=""/> -->
-    <HomeTab :currentCity="currentCity" />
-    <Content />
-    <Weather :latitude="latitude" :longitude="longitude" />
+    <image 
+    class="bg"
+    :src="`https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/${'yu.jpg'}`" 
+    alt=""
+    />
+    <view class="content">
+      <HomeTab :currentCity="currentCity" />
+      <Content />
+      <Weather :latitude="latitude" :longitude="longitude" />
+    </view>
   </view>
 </template>
 
@@ -18,7 +24,6 @@ import Taro from "@tarojs/taro";
 const QQMapWX = require("../../utils/qqmap-wx-jssdk.js");
 
 export default {
-  name: "Index",
 
   components: { Content, HomeTab, Weather },
 
