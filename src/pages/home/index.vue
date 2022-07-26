@@ -11,6 +11,7 @@ import Content from '../home/components/Content.vue'
 import HomeTab from '../home/components/homeTab.vue'
 import {ref,onMounted} from 'vue'
 import Taro from '@tarojs/taro'
+import WeatherService from '../../service/weather.service.tsx'
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
 
@@ -18,11 +19,6 @@ export default {
   name: 'Index',
 
   components: {Content,HomeTab},
-
-  data() {
-    latitude: ''
-    longitude: ''
-  },
 
   methods: {
 
@@ -38,18 +34,21 @@ export default {
     // 获取用户经纬度
       Taro.getLocation({
         type: 'wgs84',
-        success: function (res) {
+        success: function (result) {
               // 获取用户城市
           qqmapsdk.reverseGeocoder({
             location: {
-            latitude: res.latitude.toString(),
-            longitude: res.longitude.toString()
+            latitude: result.latitude.toString(),
+            longitude: result.longitude.toString()
             },
-            success: function (res) {
+            success: async function (res) {
               let province = res.result.ad_info.province
               let city = res.result.ad_info.city
               let district = res.result.ad_info.district
               currentCity.value = city
+
+              const response = await WeatherService.getCurrentCity(result.longitude.toFixed(2).toString()+','+result.latitude.toFixed(2).toString())
+              console.log('response',response);
             },
             fail: function (res) {
               console.log(res);
