@@ -1,17 +1,21 @@
 <template>
   <view class="index">
+    <view v-for="(item,index) of imgList" :key="index">
+      <view>{{`../images/${item.imgUrl}`}}</view>
+      <image v-if="item.imgUrl" :src="`../images/${item.imgUrl}`" alt=""/>
+    </view>
     <HomeTab :currentCity="currentCity"/>
     <Content/>
     <Weather :latitude="latitude" :longitude="longitude"/>
   </view>
 </template>
 
-<script>
+<script lang="ts">
 import './index.scss'
 import Content from '../home/components/Content.vue'
 import HomeTab from '../home/components/homeTab.vue'
-import Weather from './components/weather'
-import {ref,onMounted} from 'vue'
+import Weather from '../home/components/weather.vue'
+import {ref,onMounted, reactive} from 'vue'
 import Taro from '@tarojs/taro'
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
@@ -21,15 +25,29 @@ export default {
 
   components: {Content,HomeTab,Weather},
 
-  methods: {
-
-  },
-
   setup() {
     
-    let currentCity = ref('')
-    let latitude = ref('')
-    let longitude = ref('')
+    const currentCity = ref('')
+    const latitude = ref()
+    const longitude = ref()
+    const imgList=reactive([
+      {
+        imgUrl: 'qing.jpg',
+        key: 'qing'
+      },
+      {
+        imgUrl: 'yu.jpg',
+        key: 'yu'
+      },
+      {
+        imgUrl: 'yun.jpg',
+        key: 'yun'
+      },
+      {
+        imgUrl: 'xue.jpg',
+        key: 'xue'
+      },
+    ])
 
     onMounted(()=>{
       const qqmapsdk = new QQMapWX({
@@ -55,9 +73,6 @@ export default {
             fail: function (res) {
               console.log(res);
             },
-            complete: function (res) {
-              // console.log(res);
-            }
           });  
         }
       })
@@ -65,7 +80,8 @@ export default {
   return {
     currentCity,
     latitude,
-    longitude
+    longitude,
+    imgList,
   }
 }
 

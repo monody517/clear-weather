@@ -2,7 +2,7 @@
   <view v-if="contentArr.length!==0" class="title-content">
     <view 
     class="title" 
-    v-for="(item,index) of contentArr" 
+    v-for="(item,index) of contentArr"
     :key="index"
     :style="{color: '#606266',marginTop: `${50*index}px`}"
     >

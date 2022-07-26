@@ -24,6 +24,7 @@ export default {
         })
 
         watch(props,async (old,newProps)=>{
+            console.log(old);
             const response = await WeatherService.getCurrentCity(newProps.longitude.toFixed(2).toString()+','+newProps.latitude.toFixed(2).toString())
             const data = await UtilService.responseHandle(response)
             const daily = data.daily[0]
