@@ -1,10 +1,8 @@
 <template>
   <view class="weather-content" :style="{width: width}">
       <view>
-        <view class="textday">{{store.textDay}}</view>
-        <view>{{store.count}}</view>
-        <view>{{weatherInfo.tempMax+'℃'}}</view>
-        <view>{{weatherInfo.tempMin+'℃'}}</view>
+        <view class="textday">{{weatherInfo.textDay}}</view>
+        <view>{{weatherInfo.temp+'℃'}}</view>
       </view>
       <view>
         <view>{{weatherInfo.windDirDay+weatherInfo.windScaleDay+'级'}}</view>
@@ -30,29 +28,37 @@ export default {
 
     console.log('store1',store);
     
+    Taro.loadFontFace({
+      family: 'yingqu',
+      source: 'https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/LXGWWenKai-Bold.ttf',
+
+      success(res) {
+        console.log('res', res);
+      },
+      fail(err) {
+        console.log('err', err);
+      },
+    });
 
     const weatherInfo = ref({
       textDay: '',
-      tempMax: '',
-      tempMin: '',
+      temp: '',
       windDirDay: '',
       windScaleDay: '',
       humidity: '',
       vis: '',
     });
 
-    watch(props, async (old, newProps) => {
-      console.log(old);
+    watch(props, async (newProps) => {
       const response = await WeatherService.getCurrentCity(`${newProps.longitude.toFixed(2).toString()},${newProps.latitude.toFixed(2).toString()}`);
       const data = await UtilService.responseHandle(response);
-      const daily = data.daily[0];
-      store.textDay = daily.textDay
+      const daily = data.now;
+      store.textCode = daily.icon
       weatherInfo.value = {
-        textDay: daily.textDay,
-        tempMax: daily.tempMax,
-        tempMin: daily.tempMin,
-        windDirDay: daily.windDirDay,
-        windScaleDay: daily.windScaleDay,
+        textDay: daily.text,
+        temp: daily.temp,
+        windDirDay: daily.windDir,
+        windScaleDay: daily.windScale,
         humidity: daily.humidity,
         vis: daily.vis,
       };
@@ -82,6 +88,7 @@ export default {
     border-radius: 16px;
     padding-left: 32px;
     padding-right: 32px;
+    font-family: 'yingqu';
 }
 .textday{
     font-size: 80px;

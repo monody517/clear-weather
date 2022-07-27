@@ -2,7 +2,7 @@
   <view class="index">
     <image
     class="bg"
-    :src="`https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/${'yu.jpg'}`"
+    :src="`https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/${getImgUrl(store.textCode)}`"
     alt=""
     />
     <view class="content">
@@ -10,7 +10,6 @@
       <Content1 />
       <Weather :latitude="latitude" :longitude="longitude" />
     </view>
-    <button @click="add1(1)" style="margin-top: 200px;z-index: 100">{{'+1'}}</button>
   </view>
 </template>
 
@@ -52,12 +51,26 @@ const QQMapWX = require('../../utils/qqmap-wx-jssdk');
 
     const store = useWeatherStore()
 
-    console.log('store',store);
-
-    function add1(num){
-      console.log('1111',num);
-      
-      store.add()
+    function getImgUrl(weather) {
+      let imgUrl = ''
+      switch(weather){
+        case '100':
+          imgUrl = 'qing.jpg';
+          break
+        case '150': 
+          imgUrl = 'qing-ye.jpg';
+          break
+        case '101', '151':
+          imgUrl = 'yun.jpg';
+          break
+        case '300','301','302','303','304','305','306','307','350','399':
+          imgUrl = 'yu.jpg';
+          break
+        case '400','401','402','403','499':
+          imgUrl = 'xue.jpg';
+          break
+      }
+      return imgUrl
     }
 
     onMounted(() => {
