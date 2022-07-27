@@ -1,7 +1,8 @@
 <template>
   <view class="weather-content" :style="{width: width}">
       <view>
-        <view class="textday">{{weatherInfo.textDay}}</view>
+        <view class="textday">{{store.textDay}}</view>
+        <view>{{store.count}}</view>
         <view>{{weatherInfo.tempMax+'℃'}}</view>
         <view>{{weatherInfo.tempMin+'℃'}}</view>
       </view>
@@ -16,14 +17,19 @@
 <script lang="ts">
 import { ref, watch } from 'vue';
 import Taro from '@tarojs/taro';
-import WeatherService from '../../../service/weather.tsx';
-import UtilService from '../../../service/util.tsx';
+import WeatherService from '../../../service/weather';
+import UtilService from '../../../service/util';
+import { useWeatherStore } from '../../../stores/weatherStore'
 // import { WeatherInfo } from '../../../service/weather'
 
 export default {
   props: ['latitude', 'longitude'],
   setup(props) {
     const width = Taro.pxTransform(638);
+    const store = useWeatherStore()
+
+    console.log('store1',store);
+    
 
     const weatherInfo = ref({
       textDay: '',
@@ -40,6 +46,7 @@ export default {
       const response = await WeatherService.getCurrentCity(`${newProps.longitude.toFixed(2).toString()},${newProps.latitude.toFixed(2).toString()}`);
       const data = await UtilService.responseHandle(response);
       const daily = data.daily[0];
+      store.textDay = daily.textDay
       weatherInfo.value = {
         textDay: daily.textDay,
         tempMax: daily.tempMax,
@@ -49,11 +56,13 @@ export default {
         humidity: daily.humidity,
         vis: daily.vis,
       };
-      console.log(weatherInfo.value);
     });
+
+    console.log('store2',store);
     return {
       weatherInfo,
       width,
+      store
     };
   },
 };

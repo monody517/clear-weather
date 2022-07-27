@@ -10,24 +10,24 @@
       <Content1 />
       <Weather :latitude="latitude" :longitude="longitude" />
     </view>
+    <button @click="add1(1)" style="margin-top: 200px;z-index: 100">{{'+1'}}</button>
   </view>
 </template>
 
-<script lang="ts">
+<script setup>
 import './index.scss';
 import { ref, onMounted, reactive } from 'vue';
 import Taro from '@tarojs/taro';
 import Content1 from './components/Content.vue';
 import HomeTab from './components/homeTab.vue';
 import Weather from './components/weather.vue';
+import { useWeatherStore } from '../../stores/weatherStore'
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk');
 
-export default {
+  // components: { Content1, HomeTab, Weather }
 
-  components: { Content1, HomeTab, Weather },
 
-  setup() {
     const currentCity = ref('');
     const latitude = ref();
     const longitude = ref();
@@ -49,6 +49,16 @@ export default {
         key: 'xue',
       },
     ]);
+
+    const store = useWeatherStore()
+
+    console.log('store',store);
+
+    function add1(num){
+      console.log('1111',num);
+      
+      store.add()
+    }
 
     onMounted(() => {
       const qqmapsdk = new QQMapWX({
@@ -78,12 +88,5 @@ export default {
         },
       });
     });
-    return {
-      currentCity,
-      latitude,
-      longitude,
-      imgList,
-    };
-  },
-};
+
 </script>
