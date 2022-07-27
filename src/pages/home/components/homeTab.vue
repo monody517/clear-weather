@@ -7,19 +7,19 @@
 </template>
 
 <script lang="ts">
-import Taro from '@tarojs/taro'
+import Taro from '@tarojs/taro';
 
 export default ({
-    props: ['currentCity'],
+  props: ['currentCity'],
 
-    setup() {
-        const width = Taro.pxTransform(750)
+  setup() {
+    const width = Taro.pxTransform(750);
 
-        return {
-            width
-        }
-    }
-})
+    return {
+      width,
+    };
+  },
+});
 </script>
 
 <style lang="stylus">

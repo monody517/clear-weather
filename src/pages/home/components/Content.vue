@@ -1,7 +1,7 @@
 <template>
   <view v-if="contentArr.length!==0" class="title-content">
-    <view 
-    class="title" 
+    <view
+    class="title"
     v-for="(item,index) of contentArr"
     :key="index"
     :style="{color: '#606266',marginTop: `${50*index}px`}"
@@ -13,44 +13,43 @@
 
 <script>
 
-import Taro from '@tarojs/taro'
-import {ref,onMounted} from 'vue'
+import Taro from '@tarojs/taro';
+import { ref, onMounted } from 'vue';
 
-const jinrishici = require('../../../utils/jinrishici')
+const jinrishici = require('../../../utils/jinrishici');
 
 export default {
   setup() {
-    const contentRef = ref('')
-    let contentArr = ref([])
+    const contentRef = ref('');
+    const contentArr = ref([]);
 
-    onMounted(()=>{
-      jinrishici.load(result => {
-        console.log('result',result);
-        contentRef.value = result.data.content
-        contentArr.value = contentRef.value.split('，')
-      },err=>{
-          console.log('err',err);
-      })
+    onMounted(() => {
+      jinrishici.load((result) => {
+        console.log('result', result);
+        contentRef.value = result.data.content;
+        contentArr.value = contentRef.value.split('，');
+      }, (err) => {
+        console.log('err', err);
+      });
       Taro.loadFontFace({
         family: 'yingqu',
         source: 'https://qingyu-1313022355.cos.ap-chengdu.myqcloud.com/LXGWWenKai-Bold.ttf',
 
-        success(res){
-          console.log('res', res)
+        success(res) {
+          console.log('res', res);
         },
-        fail(err){
-          console.log('err', err)
+        fail(err) {
+          console.log('err', err);
         },
-      })
-    })
+      });
+    });
 
     return {
       contentRef,
       contentArr,
-    }
-  }
-}
-
+    };
+  },
+};
 
 </script>
 
@@ -65,14 +64,9 @@ export default {
 .title {
   font-family: 'yingqu';
   font-size: 50px;
-  writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/  
+  writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
   writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
   letter-spacing:14px;
   margin-right: 3px;
 }
 </style>
-
-
-
-
-

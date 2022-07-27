@@ -14,49 +14,49 @@
 </template>
 
 <script lang="ts">
-import WeatherService from "../../../service/weather"
-import UtilService from "../../../service/util"
+import { ref, watch } from 'vue';
+import Taro from '@tarojs/taro';
+import WeatherService from '../../../service/weather.tsx';
+import UtilService from '../../../service/util.tsx';
 // import { WeatherInfo } from '../../../service/weather'
-import { ref, watch } from 'vue'
-import Taro from '@tarojs/taro'
 
 export default {
-    props:['latitude','longitude'],
-    setup(props) {
-        const width = Taro.pxTransform(638)
-        
-        let weatherInfo = ref({
-            textDay: '',
-            tempMax: '',
-            tempMin: '',
-            windDirDay: '',
-            windScaleDay: '',
-            humidity: '',
-            vis: '',
-        })
+  props: ['latitude', 'longitude'],
+  setup(props) {
+    const width = Taro.pxTransform(638);
 
-        watch(props,async (old,newProps)=>{
-            console.log(old);
-            const response = await WeatherService.getCurrentCity(newProps.longitude.toFixed(2).toString()+','+newProps.latitude.toFixed(2).toString())
-            const data = await UtilService.responseHandle(response)
-            const daily = data.daily[0]
-            weatherInfo.value = {
-                textDay:daily.textDay,
-                tempMax: daily.tempMax,
-                tempMin: daily.tempMin,
-                windDirDay: daily.windDirDay,
-                windScaleDay: daily.windScaleDay,
-                humidity: daily.humidity,
-                vis: daily.vis,
-            }
-            console.log(weatherInfo.value);
-        })
-        return {
-            weatherInfo,
-            width
-        }
-    }
-}
+    const weatherInfo = ref({
+      textDay: '',
+      tempMax: '',
+      tempMin: '',
+      windDirDay: '',
+      windScaleDay: '',
+      humidity: '',
+      vis: '',
+    });
+
+    watch(props, async (old, newProps) => {
+      console.log(old);
+      const response = await WeatherService.getCurrentCity(`${newProps.longitude.toFixed(2).toString()},${newProps.latitude.toFixed(2).toString()}`);
+      const data = await UtilService.responseHandle(response);
+      const daily = data.daily[0];
+      weatherInfo.value = {
+        textDay: daily.textDay,
+        tempMax: daily.tempMax,
+        tempMin: daily.tempMin,
+        windDirDay: daily.windDirDay,
+        windScaleDay: daily.windScaleDay,
+        humidity: daily.humidity,
+        vis: daily.vis,
+      };
+      console.log(weatherInfo.value);
+    });
+    return {
+      weatherInfo,
+      width,
+    };
+  },
+};
 </script>
 
 <style>
