@@ -2,6 +2,10 @@ export default {
   pages: [
     'pages/home/index'
   ],
+  requiredPrivateInfos:[
+  "getLocation",
+  "chooseAddress"
+  ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',

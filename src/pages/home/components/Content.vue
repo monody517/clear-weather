@@ -25,8 +25,11 @@ export default {
 
     onMounted(()=>{
       jinrishici.load(result => {
+        console.log('result',result);
         contentRef.value = result.data.content
         contentArr.value = contentRef.value.split('，')
+      },err=>{
+          console.log('err',err);
       })
       Taro.loadFontFace({
         family: 'yingqu',
@@ -57,7 +60,7 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   margin-left: 350px;
-  margin-top: 50px;
+  margin-top: 150px;
 }
 .title {
   font-family: 'yingqu';
