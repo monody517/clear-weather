@@ -3,18 +3,29 @@ const path = require('path');
 const config = {
   projectName: 'clear-weather',
   date: '2022-7-21',
-  designWidth: 750,
-  deviceRatio: {
-    640: 2.34 / 2,
-    750: 1,
-    828: 1.81 / 2
-  },
+  // designWidth: 750,
+  // deviceRatio: {
+  //   640: 2.34 / 2,
+  //   750: 1,
+  //   828: 1.81 / 2
+  // },
   sourceRoot: 'src',
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   },
   outputRoot: `dist/${process.env.TARO_ENV}`,
-  plugins: ['taro-plugin-pinia'],
+  plugins: ['taro-plugin-pinia','@tarojs/plugin-html'],
+  // 给 sass-loader 传递选项 ！！！！ 按需加载方式必须配置
+  sass: {
+    data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`,
+  },
+  designWidth: 375,
+  deviceRatio: {
+    640: 2.34 / 2,
+    750: 1,
+    828: 1.81 / 2,
+    375: 2 / 1
+  },
   defineConstants: {
     IS_H5: process.env.TARO_ENV === "h5",
     IS_WEAPP: process.env.TARO_ENV === "weapp",
