@@ -14,9 +14,8 @@
       >
       {{ item }}
       </view>
+    </view>
   </view>
-  </view>
-
 </template>
 
 <script>
@@ -25,6 +24,8 @@ import Taro from '@tarojs/taro';
 import { ref, onMounted } from 'vue';
 
 const jinrishici = require('../../../utils/jinrishici');
+
+
 
 export default {
   setup() {

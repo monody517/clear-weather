@@ -1,16 +1,19 @@
 <template>
     <view class="dizhi" :style="{width: width}">
-        <image src="../../images/dizhi.png" style="width: 16px;height: 16px;marginLeft: 8px"/>
-        <view>{{currentCity}}</view>
+        <choose-city />
+        <view class="city">{{currentCity}}</view>
         <view style="width: 16px;height: 16px;marginRight: 16px">{{''}}</view>
     </view>
 </template>
 
 <script lang="ts">
 import Taro from '@tarojs/taro';
+import ChooseCity from '../components/ChooseCity.vue'
 
 export default ({
   props: ['currentCity'],
+
+  components:{ChooseCity},
 
   setup() {
     const width = Taro.pxTransform(750);
@@ -31,5 +34,8 @@ export default ({
     justify-content: space-between;
     margin-top: 16px;
     left: 0
+}
+.city{
+  font-size: 40px;
 }
 </style>

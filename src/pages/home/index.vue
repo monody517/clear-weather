@@ -11,6 +11,7 @@
       <Weather :latitude="latitude" :longitude="longitude" />
     </view>
   </view>
+  <view id="modal-wrapper"></view>
 </template>
 
 <script setup>
@@ -20,11 +21,11 @@ import Taro from '@tarojs/taro';
 import Content1 from './components/Content.vue';
 import HomeTab from './components/homeTab.vue';
 import Weather from './components/weather.vue';
-import { useWeatherStore } from '../../stores/weatherStore'
+import { useWeatherStore } from '../../stores/weatherStore';
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk');
 
-  // components: { Content1, HomeTab, Weather }
+  // components: { Content1, HomeTab, Weather}
 
 
     const currentCity = ref('');

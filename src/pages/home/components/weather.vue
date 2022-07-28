@@ -18,7 +18,6 @@ import Taro from '@tarojs/taro';
 import WeatherService from '../../../service/weather';
 import UtilService from '../../../service/util';
 import { useWeatherStore } from '../../../stores/weatherStore'
-// import { WeatherInfo } from '../../../service/weather'
 
 export default {
   props: ['latitude', 'longitude'],
