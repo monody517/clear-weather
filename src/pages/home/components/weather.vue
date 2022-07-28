@@ -1,7 +1,7 @@
 <template>
   <view class="weather-content" :style="{width: width}">
       <view>
-        <view class="textday">{{weatherInfo.textDay}}</view>
+        <view class="textday">{{getAliasWeather(weatherInfo.textDay)}}</view>
         <view>{{weatherInfo.temp+'℃'}}</view>
       </view>
       <view>
@@ -64,11 +64,33 @@ export default {
       };
     });
 
-    console.log('store2',store);
+    function getAliasWeather(textDay){
+      let alias = ''
+      switch (textDay){
+        case '晴':
+          alias = '阳光明媚'
+          break
+        case '多云':
+          alias = '阴云密布'
+          break
+        case '小雨':
+          alias = '和风细雨'
+          break
+        case '大雨':
+          alias = '倾盆大雨'
+          break
+        case '雪':
+          alias = '白雪皑皑'
+          break
+      }
+      return alias
+    }
+
     return {
       weatherInfo,
       width,
-      store
+      store,
+      getAliasWeather
     };
   },
 };

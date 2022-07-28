@@ -1,14 +1,22 @@
 <template>
-  <view v-if="contentArr.length!==0" class="title-content">
-    <view
-    class="title"
-    v-for="(item,index) of contentArr"
-    :key="index"
-    :style="{color: '#606266',marginTop: `${50*index}px`}"
-    >
-    {{ item }}
-    </view>
+  <view>
+    <view v-if="contentArr.length!==0" class="title-content">
+      <view style="display:flex;flex-direction: column;">
+        <view v-for="(item,index) of matchTags" :key="index" class="tags">
+          {{item}}
+        </view>
+      </view>
+      <view
+      class="title"
+      v-for="(item,index) of contentArr"
+      :key="index"
+      :style="{color: '#606266',marginTop: `${50*index}px`}"
+      >
+      {{ item }}
+      </view>
   </view>
+  </view>
+
 </template>
 
 <script>
@@ -22,12 +30,14 @@ export default {
   setup() {
     const contentRef = ref('');
     const contentArr = ref([]);
+    const matchTags = ref([])
 
     onMounted(() => {
       jinrishici.load((result) => {
         console.log('result', result);
         contentRef.value = result.data.content;
         contentArr.value = contentRef.value.split('，');
+        matchTags.value = result.data.matchTags
       }, (err) => {
         console.log('err', err);
       });
@@ -47,6 +57,7 @@ export default {
     return {
       contentRef,
       contentArr,
+      matchTags
     };
   },
 };
@@ -59,7 +70,7 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   margin-left: 350px;
-  margin-top: 150px;
+  margin-top: 250px;
 }
 .title {
   font-family: 'yingqu';
@@ -68,5 +79,21 @@ export default {
   writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
   letter-spacing:14px;
   margin-right: 3px;
+}
+.tags{
+  font-family: 'yingqu';
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  background-color: rgb(219, 1, 1);
+  border-radius: 30px;
+  color: #fff;
+  width: 40px;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-right: 10px;
 }
 </style>
