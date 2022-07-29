@@ -31,24 +31,6 @@ const QQMapWX = require('../../utils/qqmap-wx-jssdk');
     const currentCity = ref('');
     const latitude = ref();
     const longitude = ref();
-    const imgList = reactive([
-      {
-        imgUrl: 'qing.jpg',
-        key: 'qing',
-      },
-      {
-        imgUrl: 'yu.jpg',
-        key: 'yu',
-      },
-      {
-        imgUrl: 'yun.jpg',
-        key: 'yun',
-      },
-      {
-        imgUrl: 'xue.jpg',
-        key: 'xue',
-      },
-    ]);
 
     const store = useWeatherStore()
 
@@ -58,16 +40,16 @@ const QQMapWX = require('../../utils/qqmap-wx-jssdk');
         case '100':
           imgUrl = 'qing.jpg';
           break
-        case '150': 
+        case '150':
           imgUrl = 'qing-ye.jpg';
           break
-        case '101', '151':
+        case '101' || '151' || '104':
           imgUrl = 'yun.jpg';
           break
-        case '300','301','302','303','304','305','306','307','350','399':
+        case '300' || '301' || '302' || '303' || '304' || '305' || '306' || '307' || '350' || '399':
           imgUrl = 'yu.jpg';
           break
-        case '400','401','402','403','499':
+        case '400' || '401' || '402' || '403' || '499':
           imgUrl = 'xue.jpg';
           break
       }

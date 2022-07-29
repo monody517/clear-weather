@@ -21,7 +21,10 @@
 <script>
 
 import Taro from '@tarojs/taro';
-import { ref, onMounted } from 'vue';
+import {ref, onMounted, watch} from 'vue';
+import {toRaw} from "@vue/reactivity";
+import {storeToRefs} from "pinia";
+import {useCityStore} from "../../../stores/city";
 
 const jinrishici = require('../../../utils/jinrishici');
 
@@ -32,8 +35,10 @@ export default {
     const contentRef = ref('');
     const contentArr = ref([]);
     const matchTags = ref([])
+    const cityStore = useCityStore()
+    const {currCity} = storeToRefs(cityStore)
 
-    onMounted(() => {
+    function getContent() {
       jinrishici.load((result) => {
         console.log('result', result);
         contentRef.value = result.data.content;
@@ -53,7 +58,11 @@ export default {
           console.log('err', err);
         },
       });
-    });
+    }
+
+    watch(currCity,()=> {
+      getContent()
+    })
 
     return {
       contentRef,
