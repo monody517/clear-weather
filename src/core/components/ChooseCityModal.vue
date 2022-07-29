@@ -1,5 +1,5 @@
 <template>
-  <view class="modal">
+  <view class="modal" v-if="store.showModal">
     <view class="modal-content">
       <view class="content-title">选择地址</view>
       <view class="content1">
@@ -32,61 +32,18 @@
 
 <script>
 import {ref} from 'vue'
+import {useCityStore} from "../../stores/city";
 const { province, city } = require('province-city-china/data');
 export default {
   name: "ChooseCityModal",
 
   setup() {
-    city.push(
-      {
-        "code": "110100",
-        "name": "北京市",
-        "province": "11",
-        "city": "01"
-      },
-      {
-        "code": "120100",
-        "name": "天津市",
-        "province": "12",
-        "city": "01"
-      },
-      {
-        "code": "310100",
-        "name": "上海市",
-        "province": "31",
-        "city": "01"
-      },
-      {
-        "code": "500100",
-        "name": "重庆市",
-        "province": "50",
-        "city": "01"
-      },
-      {
-        "code": "710100",
-        "name": "台湾省",
-        "province": "71",
-        "city": "01"
-      },
-      {
-        "code": "810100",
-        "name": "香港特别行政区",
-        "province": "81",
-        "city": "01"
-      },
-      {
-        "code": "820100",
-        "name": "澳门特别行政区",
-        "province": "82",
-        "city": "01"
-      },
-    )
     const currProvince = ref('11')
     const currProCity = ref([])
     const currCity = ref()
+    const store = useCityStore()
 
     function getCity(selectPro) {
-      console.log(selectPro)
       currProCity.value = []
       currProvince.value = selectPro.province
       city.map(item=>{
@@ -97,7 +54,8 @@ export default {
     }
 
     function clickCity(city){
-      currCity
+      store.currCity = [city]
+      store.click()
     }
 
     getCity({
@@ -107,48 +65,8 @@ export default {
       })
 
     return {
-      province,city,currProvince,currProCity,currCity,getCity,clickCity
+      province,city,currProvince,currProCity,currCity,store,getCity,clickCity
     }
-
-    /*return () => {*/
-    /*  return (*/
-    /*    <view className="modal">*/
-    /*      <view className="modal-content">*/
-    /*        <view className="content-title">选择地址</view>*/
-    /*        <view className="content1">*/
-    /*          <ScrollView scrollY className="scroll">*/
-    /*            {*/
-    /*              province.map(item=> {*/
-    /*                return (*/
-    /*                  <view*/
-    /*                    className="content-province"*/
-    /*                    onClick={()=>{getCity('111')}}*/
-    /*                  >*/
-    /*                    {item.name}*/
-    /*                  </view>*/
-    /*                )*/
-    /*              })*/
-    /*            }*/
-    /*          </ScrollView>*/
-    /*          <ScrollView scrollY className="scroll">*/
-    /*            {*/
-    /*              city.map(item=> {*/
-    /*                return (*/
-    /*                  <view*/
-    /*                    className="content-province"*/
-    /*                    onClick={()=>getCity('111')}*/
-    /*                  >*/
-    /*                    {item.name}*/
-    /*                  </view>*/
-    //                 )
-    //               })
-    //             }
-    //           </ScrollView>
-    //       </view>
-    //     </view>
-    // </view>
-    //   )
-    // }
   }
 
 }

@@ -3,17 +3,18 @@
 </template>
 
 <script>
-import { ref } from 'vue';
 import { Image } from '@tarojs/components'
 import dizhi from '../../images/dizhi.png'
 import ChooseCityModal from "../../../core/components/ChooseCityModal";
+import {useCityStore} from "../../../stores/city";
 
 export default {
   setup() {
-    let modalOpen = ref(false)
+
+    const store = useCityStore()
 
     function change() {
-      modalOpen.value = !modalOpen.value
+      store.click()
     }
 
     return () => {
@@ -23,15 +24,13 @@ export default {
             onTouchstart={()=>change()}
             src={dizhi} style="width: 16px;height: 16px;marginLeft: 8px"
           />
-          {modalOpen.value === true && <ChooseCityModal/>}
+          {<ChooseCityModal />}
         </view>
       )
 
     }
   }
 }
-
-
 </script>
 
 <style>
