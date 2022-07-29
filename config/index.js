@@ -14,12 +14,12 @@ const config = {
     '@': path.resolve(__dirname, '..', 'src'),
   },
   outputRoot: `dist/${process.env.TARO_ENV}`,
-  plugins: ['taro-plugin-pinia','@tarojs/plugin-html'],
-  // 给 sass-loader 传递选项 ！！！！ 按需加载方式必须配置
-  sass: {
-    data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`,
-  },
-  designWidth: 375,
+  plugins: ['taro-plugin-pinia'],
+  // // 给 sass-loader 传递选项 ！！！！ 按需加载方式必须配置
+  // sass: {
+  //   data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`,
+  // },
+  designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
