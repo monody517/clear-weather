@@ -10,7 +10,7 @@
 import Taro from '@tarojs/taro';
 import ChooseCity from '../components/ChooseCity.vue'
 import {useCityStore} from "../../../stores/city";
-import {ref, watch, watchEffect} from "vue";
+import {watch} from "vue";
 import {storeToRefs} from "pinia";
 import { toRaw } from '@vue/reactivity';
 
@@ -71,11 +71,6 @@ export default ({
     const store = useCityStore()
 
     const {currCity} = storeToRefs(store)
-
-    watch(currCity,(currCity,prev)=> {
-      console.log('currCity',toRaw(currCity));
-      console.log('prev',toRaw(prev));
-    })
 
     watch(props, ( newProps )=>{
       const currCityObj = city.filter(item=>item.name === newProps.currentCity)
