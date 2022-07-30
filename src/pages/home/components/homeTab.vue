@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Taro from '@tarojs/taro';
-import ChooseCity from '../components/ChooseCity.vue'
+import ChooseCity from '../../../core/components/ChooseCity.vue'
 import {useCityStore} from "../../../stores/city";
 import {watch} from "vue";
 import {storeToRefs} from "pinia";

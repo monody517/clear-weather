@@ -4,9 +4,9 @@
 
 <script>
 import { Image } from '@tarojs/components'
-import dizhi from '../../images/dizhi.png'
-import ChooseCityModal from "../../../core/components/ChooseCityModal";
-import {useCityStore} from "../../../stores/city";
+import dizhi from '../../assets/images/dizhi.png'
+import ChooseCityModal from "./ChooseCityModal";
+import {useCityStore} from "../../stores/city";
 
 export default {
   setup() {

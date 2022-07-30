@@ -16,7 +16,7 @@
 
 <script setup>
 import './index.scss';
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted } from 'vue';
 import Taro from '@tarojs/taro';
 import Content1 from './components/Content.vue';
 import HomeTab from './components/homeTab.vue';
