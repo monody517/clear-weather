@@ -9,7 +9,7 @@
             v-for="item of store.cityData"
             :key="item.code"
             @tap="getCity(item)"
-            :class="{active: item.province === currProvince}"
+            :class="{active: item === currProvince}"
             >
             {{item.name}}
           </view>
