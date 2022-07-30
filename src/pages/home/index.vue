@@ -43,13 +43,15 @@ const QQMapWX = require('../../utils/qqmap-wx-jssdk');
         case '150':
           imgUrl = 'qing-ye.jpg';
           break
-        case '101' || '151' || '104':
+        case '101':
+        case '151':
+        case'104':
           imgUrl = 'yun.jpg';
           break
-        case '300' || '301' || '302' || '303' || '304' || '305' || '306' || '307' || '350' || '399':
+        case '300':case '301':case '302':case '303':case '304':case '305':case '306':case '307':case '350':case '399':
           imgUrl = 'yu.jpg';
           break
-        case '400' || '401' || '402' || '403' || '499':
+        case '400':case '401':case '402':case '403':case '499':
           imgUrl = 'xue.jpg';
           break
       }

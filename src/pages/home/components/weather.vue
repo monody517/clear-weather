@@ -113,10 +113,10 @@ export default {
         case '晴':
           alias = '阳光明媚'
           break
-        case '多云':
+        case '多云':case '阴':
           alias = '阴云密布'
           break
-        case '小雨':
+        case '小雨':case '阵雨':
           alias = '和风细雨'
           break
         case '大雨':
