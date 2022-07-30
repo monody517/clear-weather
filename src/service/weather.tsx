@@ -1,4 +1,4 @@
-import Taro, { request } from '@tarojs/taro';
+import { request } from '@tarojs/taro';
 
 export interface WeatherInfo {
     tempMax: string;

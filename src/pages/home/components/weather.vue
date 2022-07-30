@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import Taro from '@tarojs/taro';
 import WeatherService from '../../../service/weather';
 import UtilService from '../../../service/util';
@@ -80,8 +80,6 @@ export default {
     }
 
     async function getWeather(longitude, latitude) {
-      console.log(longitude);
-      console.log(latitude);
       const response = await WeatherService.getCurrentCity(`${longitude.toFixed(2).toString()},${latitude.toFixed(2).toString()}`);
       const data = await UtilService.responseHandle(response);
       const daily = data?.now;
@@ -97,7 +95,7 @@ export default {
     }
 
     watch(currCity,()=> {
-      getocoder(toRaw(toRaw(cityStore.currCity)[0]).name)
+      getocoder(cityStore.currCity.name)
     })
 
     watch(props, (newProps) => {

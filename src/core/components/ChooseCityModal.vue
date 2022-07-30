@@ -6,7 +6,7 @@
         <view class="scroll">
           <view
             class="content-province"
-            v-for="item of province"
+            v-for="item of store.cityData"
             :key="item.code"
             @tap="getCity(item)"
             :class="{active: item.province === currProvince}"
@@ -31,9 +31,11 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {useCityStore} from "../../stores/city";
-const { province, city } = require('province-city-china/data');
+import cityService from "../../service/city";
+import UtilService from "../../service/util";
+
 export default {
   name: "ChooseCityModal",
 
@@ -43,32 +45,20 @@ export default {
     const currCity = ref()
     const store = useCityStore()
 
-    function getCity(selectPro) {
-      currProCity.value = []
-      currProvince.value = selectPro.province
-      city.map(item=>{
-        if(item.province === selectPro.province){
-          currProCity.value.push(item)
-        }
-      })
+    function getCity(pro){
+      currProvince.value = pro
+      currProCity.value = pro?.pchilds
     }
 
-    function clickCity(city){
-      store.currCity = [city]
+    function clickCity(item) {
+      store.currCity = item
       store.click()
     }
 
-    getCity({
-        code: "110000",
-      name: "北京市",
-      province: "11"
-      })
-
     return {
-      province,city,currProvince,currProCity,currCity,store,getCity,clickCity
+      currProvince,currProCity,currCity,getCity,clickCity,store
     }
   }
-
 }
 </script>
 

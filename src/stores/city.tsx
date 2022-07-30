@@ -1,29 +1,24 @@
 import { defineStore } from 'pinia';
-
-interface city {
-  code: string,
-  name: string,
-  province: string,
-  city: string
-}
-
-interface cityStoreType{
-  showModal:boolean,
-  currCity: any,
-  cityList: Array<any>
-}
+import cityService from "../service/city";
+import UtilService from "../service/util";
 
 export const useCityStore = defineStore("city", {
-  state:():cityStoreType => {
+  state:() => {
     return {
+      cityData: [],
       showModal: false,
-      currCity: {} as city,
-      cityList: [] as Array<city>
+      currCity: {},
+      cityList: []
     }
   },
   actions: {
     click() {
       this.showModal = !this.showModal
+    },
+    async getCityData() {
+      const response = await cityService.getCity()
+      const data = await UtilService.responseHandle(response)
+      this.cityData = data.data
     }
   }
 })

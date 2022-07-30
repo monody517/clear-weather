@@ -7,6 +7,9 @@ import { Image } from '@tarojs/components'
 import dizhi from '../../assets/images/dizhi.png'
 import ChooseCityModal from "./ChooseCityModal";
 import {useCityStore} from "../../stores/city";
+import {onMounted} from "vue";
+import cityService from "../../service/city";
+import UtilService from "../../service/util";
 
 export default {
   setup() {

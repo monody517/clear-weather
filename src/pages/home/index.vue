@@ -11,7 +11,6 @@
       <Weather :latitude="latitude" :longitude="longitude" />
     </view>
   </view>
-  <view id="modal-wrapper"></view>
 </template>
 
 <script setup>
@@ -24,9 +23,6 @@ import Weather from './components/weather.vue';
 import { useWeatherStore } from '../../stores/weatherStore';
 
 const QQMapWX = require('../../utils/qqmap-wx-jssdk');
-
-  // components: { Content1, HomeTab, Weather}
-
 
     const currentCity = ref('');
     const latitude = ref();
