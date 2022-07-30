@@ -8,6 +8,7 @@
         <view>{{weatherInfo.windDirDay+weatherInfo.windScaleDay+'级'}}</view>
         <view>{{'湿度'+weatherInfo.humidity+ '%'}}</view>
         <view>{{'能见度'+weatherInfo.vis+'公里'}}</view>
+        <view>{{'体感温度'+weatherInfo.feelsLike+'℃'}}</view>
       </view>
   </view>
 </template>
@@ -91,6 +92,7 @@ export default {
         windScaleDay: daily?.windScale,
         humidity: daily?.humidity,
         vis: daily?.vis,
+        feelsLike: daily?.feelsLike
       };
     }
 
